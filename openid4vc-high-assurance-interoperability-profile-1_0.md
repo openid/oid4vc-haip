@@ -152,7 +152,13 @@ The public key, and optionally a trust chain, used to validate the signature on 
 
 ## Credential Endpoint
 
-* The `JWT` proof type MUST be supported.
+* The following proof types MUST be supported:
+  * `jwt` proof type using `key_attestation`
+  * `attestation` proof type
+
+### Key Attestation {#key-attestation}
+
+Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
 ## Server Metadata
 
@@ -442,7 +448,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
-   * ...
+   * add key attestation to OpenID4VCI
 
    -03
 
