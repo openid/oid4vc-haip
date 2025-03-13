@@ -120,7 +120,7 @@ Both Wallet initiated and Issuer initiated issuance is supported.
 
 ## Issuer Metadata
 
-Support for signed Issuer Metadata to allow for Issuer authentication via the `signed_metadata` parameter in the Issuer Metadata is RECOMMENDED. When required by ecosystem policy, signed Issuer Metadata MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer Metadata via the `x5c` header parameter in the JWT MUST be supported for signed Issuer Metadata.
+Support for signed Issuer Metadata to allow for Issuer authentication via the `signed_metadata` parameter in the Issuer Metadata is RECOMMENDED. When required by ecosystem policy, signed Issuer Metadata MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer Metadata MUST be supported via the `x5c` JOSE header parameter as defined in [@!RFC7515].
 
 ## Credential Offer
 
