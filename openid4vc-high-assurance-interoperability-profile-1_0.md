@@ -445,7 +445,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
-   * ...
+   * Define key resolution mechanisms for all elements
 
    -03
 
