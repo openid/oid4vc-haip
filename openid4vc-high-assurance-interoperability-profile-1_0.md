@@ -166,7 +166,7 @@ Requirements for both the Wallet and the Verifier:
 * Response type MUST be `vp_token`.
 * Response mode MUST be `direct_post.jwt`. The Verifier MUST return `redirect_uri` in response to the HTTP POST request from the Wallet, where the Wallet redirects the User to, as defined in Section 8.2 of [@!OIDF.OID4VP]. Implementation considerations for the response mode `direct_post.jwt` are given in Section 14.3 of [@!OIDF.OID4VP].
 * Authorization Request MUST be sent using the `request_uri` parameter as defined in JWT-Secured Authorization Request (JAR) [@!RFC9101].
-* For Client Identifier Schemes as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported
+* For Client Identifier Schemes as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported.
 * The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used.
 
 # OpenID for Verifiable Presentations over W3C Digital Credentials API
@@ -228,7 +228,7 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 * The `iss` claim MUST be an HTTPS URL. The `iss` value is used to obtain Issuer’s signing key as defined in (#issuer-key-resolution).
 * The `vct` JWT claim as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
 * The `cnf` claim [@!RFC7800] MUST conform to the definition given in [@!I-D.ietf-oauth-sd-jwt-vc]. Implementations conforming to this profile MUST include the JSON Web Key [@!RFC7517] in the `jwk` sub claim.
-* The public key used to validate the signature on the Status List Token MUST be included in the x5c JOSE header of the Token.
+* The public key used to validate the signature on the Status List Token MUST be included in the `x5c` JOSE header of the Token.
 
 Note: Currently this profile only supports presentation of credentials with cryptographic Holder Binding: the holder's signature is required to proof the credential is presented by the holder it was issued to. This profile might support claim-based and biometrics-based holder binding once OpenID for Verifiable Credentials adds support for other forms of Holder Binding. See https://bitbucket.org/openid/connect/issues/1537/presenting-vc-without-a-vp-using-openid4vp
 
@@ -242,7 +242,7 @@ Note: In some credential types, it is not desirable to include an expiration dat
 
 ## Issuer identification and key resolution to validate an issued Credential {#issuer-key-resolution}
 
-This profile supports one mandatory way to represent and resolve the key required to validate the issuer signature of an SD-JWT VC, x.509 certificates. This MUST be supported by all entities (Issuer, Wallet, Verifier).
+This profile supports one mandatory way to represent and resolve the key required to validate the issuer signature of an SD-JWT VC, x.509 certificates. This MUST be supported by all entities (Issuer, Wallet, Verifier):
 
 * x.509 certificates: the SD-JWT VC contains the issuer's certificate along with a trust chain in the `x5c` JOSE header. In this case, the `iss` value MUST be an URL with a FQDN matching a `dNSName` Subject Alternative Name (SAN) [@!RFC5280] entry in the leaf certificate.
 
