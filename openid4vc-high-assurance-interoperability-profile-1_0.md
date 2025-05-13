@@ -82,7 +82,7 @@ Assumptions made are the following:
 
 The following items are out of scope for the current version of this document, but might be added in future versions:
 
-* Trust Management, i.e. authorization of an issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of  the Verifier to receive certain types of credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scopes of this specification.
+* Trust Management, i.e. authorization of an issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of  the Verifier to receive certain types of credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
 * Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
 * Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
 * Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
