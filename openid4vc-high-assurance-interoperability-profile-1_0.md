@@ -187,6 +187,7 @@ The following requirements apply for both, the Wallet and the Verifier, unless s
 ## ISO mdoc specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
 
 Requirements for both the Wallet and the Verifier:
+
 * ISO mdoc Credential Format specific DCQL parameter, `intent_to_retain` defined in Annex B.3.1 of [@!OIDF.OID4VP] MUST be present.
 * When multiple ISO mdocs are being returned, each ISO mdoc MUST be returned in a separate `DeviceResponse` (as defined in 8.3.2.1.2.2 of [@!ISO.18013-5]), each matching to a respective DCQL query. Therefore, the resulting `vp_token` contains multiple `DeviceResponse` instances.
 
