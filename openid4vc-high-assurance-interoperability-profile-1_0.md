@@ -449,6 +449,7 @@ The technology described in this specification was made available from contribut
    -04
 
    * add key attestation to OpenID4VCI
+   * clarify text regarding mdoc specific parameters
 
    -03
 
