@@ -166,7 +166,7 @@ Requirements for both the Wallet and the Verifier:
 * Response type MUST be `vp_token`.
 * Response mode MUST be `direct_post.jwt`. The Verifier MUST return `redirect_uri` in response to the HTTP POST request from the Wallet, where the Wallet redirects the User to, as defined in Section 8.2 of [@!OIDF.OID4VP]. Implementation considerations for the response mode `direct_post.jwt` are given in Section 14.3 of [@!OIDF.OID4VP].
 * Authorization Request MUST be sent using the `request_uri` parameter as defined in JWT-Secured Authorization Request (JAR) [@!RFC9101].
-* For Client Identifier Schemes as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported.
+* For Client Identifier Schemes as introduced in Section 5.9 of [@!OIDF.OID4VP], `x509_hash` MUST be supported by the Wallet and used by the Verifier.
 * The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used.
 
 # OpenID for Verifiable Presentations over W3C Digital Credentials API
@@ -444,7 +444,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
-   * Define key resolution mechanisms for all elements
+   * x509_san_dns & verifier_attestations client id prefixes are no longer permitted, x509_hash must be used
 
    -03
 
