@@ -236,7 +236,7 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 * The `vct` JWT claim as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
 * The `cnf` claim [@!RFC7800] MUST conform to the definition given in [@!I-D.ietf-oauth-sd-jwt-vc]. Implementations conforming to this profile MUST include the JSON Web Key [@!RFC7517] in the `jwk` sub claim.
 
-Any of the flows defined in this specification MUST be used with cryptographic holder binding. However, this does not prevent credentials with other kind of holder bindings (claim-based and biometrics-based holder binding) to be used with the flows defined in this specification. 
+Any of the flows defined in this specification MUST be used with cryptographic holder binding. However, this does not prevent credentials with other kind of holder bindings (claim-based and biometrics-based holder binding) to be used with the flows defined in this specification.
 
 Note: Re-using the same Credential across Verifiers, or re-using the same JWK value across multiple Credentials gives colluding Verifiers a mechanism to correlate the User. There are currently two known ways to address this with SD-JWT VCs. First is to issue multiple instances of the same credentials with different JWK values, so that if each instance of the credential is used at only one Verifier, it can be reused multiple times. Another is to use each credential only once (ephemeral credentials). It is RECOMMENDED to adopt one of these mechanisms.
 
