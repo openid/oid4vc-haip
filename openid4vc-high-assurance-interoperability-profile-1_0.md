@@ -46,7 +46,7 @@ A full list of the open standards used in this profile can be found in Overview 
 
 ## Audience Target audience/Usage
 
-The audience of the document is implementers that require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
+The audience of the document is implementers that require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes anyone implementing [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
 
 # Terminology
 
@@ -89,7 +89,7 @@ Assumptions made are the following:
 
 * Combined Issuance of SD-JWT VC and mdoc
 * Both issuer-initiated and wallet-initiated issuance
-* eIDAS PID and (Q)EAA as defined in eIDAS ARF 1.0
+* Presentation and Issuance of PID and (Q)EAA as defined in Architecture and Reference Framework [@EU.ARF] implementing [@eIDAS2.0].
 
 ## Standards Requirements
 
@@ -369,9 +369,29 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
         <front>
           <title>ISO/IEC 18013-5:2021 Personal identification — ISO-compliant driving license — Part 5: Mobile driving license (mDL)  application</title>
           <author>
-            <organization> ISO/IEC JTC 1/SC 17 Cards and security devices for personal identification</organization>
+            <organization>ISO/IEC JTC 1/SC 17 Cards and security devices for personal identification</organization>
           </author>
           <date year="2021"/>
+        </front>
+</reference>
+
+<reference anchor="EU.ARF" target="https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/latest/">
+        <front>
+          <title>European Digital Identity Wallet Architecture and Reference Framework</title>
+          <author>
+            <organization>European Commission</organization>
+          </author>
+          <date year="2025"/>
+        </front>
+</reference>
+
+<reference anchor="eIDAS2.0" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183">
+        <front>
+          <title>REGULATION (EU) 2024/1183 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 11 April 2024 amending Regulation (EU) No 910/2014 as regards establishing the European Digital Identity Framework</title>
+          <author>
+            <organization>European Union</organization>
+          </author>
+          <date year="2024"/>
         </front>
 </reference>
 
