@@ -50,51 +50,9 @@ The audience of the document is implementers that require a high level of securi
 
 # Terminology
 
-This specification uses the terms "Holder", "Issuer", "Verifier", "Wallet", and "Verifiable Credential" as defined in @!OIDF.OID4VCI] and [@!OIDF.OID4VP].
+This specification uses the terms "Holder", "Issuer", "Verifier", "Wallet", and "Verifiable Credential" as defined in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP].
 
 # Scope
-
-The following aspects are in scope of this interoperability profile:
-
-* Profile of OpenID4VCI to issue IETF SD-JWT VCs, including
-  * Wallet Attestation
-* Profile of OpenID4VP to present IETF SD-JWT VCs
-* Profile of OpenID4VP over the W3C Digital Credentials API [@w3c.digital_credentials_api] to present
-  * IETF SD-JWT VCs
-  * ISO mdocs
-* Protocol for User Authentication by the Wallet at a Verifier (SIOP v2)
-* Profile of IETF SD-JWT VC that includes the following aspects
-  * Status management of the Credentials, including revocation
-  * Cryptographic Key Binding
-  * Issuer key resolution
-  * Issuer identification (as prerequisite for trust management)
-* Crypto Suites
-
-Note that when OpenID4VP is used, the Wallet and the Verifier can either be remote or in-person.
-
-Assumptions made are the following:
-
-* The issuers and verifiers cannot pre-discover Wallet’s capability
-* The issuer is talking to the Wallet supporting the features defined in this profile (via Wallet invocation mechanism)
-* There are mechanisms in place for the verifiers and issuers to discover each other’s capability
-
-## Out of Scope
-
-The following items are out of scope for the current version of this document, but might be added in future versions:
-
-* Trust Management refers to authorization of an Issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of the Verifier to receive certain types of credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
-* Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
-* Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
-* Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
-defined in [@ISO.18013-7]. For more details, also see Annex B.3 in [@!OIDF.OID4VP].
-
-## Scenarios/Business Requirements
-
-* Combined Issuance of SD-JWT VC and mdoc
-* Both issuer-initiated and wallet-initiated issuance
-* eIDAS PID and (Q)EAA as defined in eIDAS ARF 1.0
-
-## Standards Requirements
 
 This specification enables interoperable implementations of the following flows:
 
@@ -106,6 +64,54 @@ This specification enables interoperable implementations of the following flows:
 Implementations of this specification do not have to implement all of the flows listed above, but they MUST be compliant to all of the requirements for a particular flow they chose to implement.
 
 A parameter that is listed as optional to be implemented in a specification that is being profiled (i.e., OpenID4VCI, OpenID4VP, W3C Digital Credentials API, IETF SD-JWT VC, and ISO mdoc) remains optional unless it is stated otherwise in this specification.
+
+Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
+
+Profile of IETF SD-JWT VC defines the following aspects
+  * Status management of the Credentials, including revocation
+  * Cryptographic Key Binding
+  * Issuer key resolution
+  * Issuer identification (as prerequisite for trust management)
+
+Mandatory to implement crypto suites are defined for all of the flows.
+
+Note that when OpenID4VP is used, the Wallet and the Verifier can either be remote or in-person.
+
+## Assumptions
+
+Assumptions made are the following:
+
+* The issuers and verifiers cannot pre-discover Wallet’s capability
+* The issuer is talking to the Wallet supporting the features defined in this profile (via Wallet invocation mechanism)
+* There are mechanisms in place for the verifiers and issuers to discover each other’s capability
+
+## Scenarios/Business Requirements
+
+* Combined Issuance of SD-JWT VC and mdoc
+* Both issuer-initiated and wallet-initiated issuance
+* eIDAS PID and (Q)EAA as defined in eIDAS ARF 1.0
+
+## Standards Requirements
+
+Following is the list of the standards that are being profiled in this specification:
+
+* OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI]
+* OpenID for Verifiable Presentations [@!OIDF.OID4VP]
+* W3C Digital Credentials API [@w3c.digital_credentials_api]
+* SD-JWT-based Verifiable Credentials (SD-JWT VC) [@!I-D.ietf-oauth-sd-jwt-vc]
+* ISO/IEC 18013-5:2021 Personal identification — ISO-compliant driving licence Part 5: Mobile driving licence (mDL) application [@!ISO.18013-5]
+
+Note that these standards reference other standards that need to be understood.
+
+## Out of Scope
+
+The following items are out of scope for the current version of this document, but might be added in future versions:
+
+* Trust Management refers to authorization of an Issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of the Verifier to receive certain types of credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
+* Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
+* Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
+* Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
+defined in [@ISO.18013-7]. For more details, also see Annex B.3 in [@!OIDF.OID4VP].
 
 # OpenID for Verifiable Credential Issuance
 
