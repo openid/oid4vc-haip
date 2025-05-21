@@ -118,6 +118,14 @@ Both the Wallet and the Credential Issuer:
 
 Both Wallet initiated and Issuer initiated issuance is supported.
 
+## Issuer Metadata
+
+To support signed Issuer Metadata to allow for Issuer authentication, it is
+RECOMMENDED to use the `signed_metadata` parameter in the Issuer Metadata.
+When required by ecosystem policy, signed Issuer Metadata MUST be supported by
+both the Wallet and the Issuer. Key resolution to validate the signed Issuer
+Metadata MUST be supported via the `x5c` JOSE header parameter as defined in [@!RFC7515].
+
 ## Credential Offer
 
 * The Grant Type `authorization_code` MUST be supported as defined in Section 4.1.1 in [@!OIDF.OID4VCI]
@@ -442,7 +450,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
-   * ...
+   * Add signed Issuer Metadata
 
    -03
 
