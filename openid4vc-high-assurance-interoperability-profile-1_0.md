@@ -469,6 +469,11 @@ The technology described in this specification was made available from contribut
    -04
 
    * Add small note that establishing trust in and retrieving root certs is out scope
+   * Update wording from Client Identifier Scheme to Client Identifier Prefix #182
+   * fix reference to ARF #177
+   * Old link in section 8 & clarify a note on claim based binding in OpenID4VP in HAIP #183
+   * Clarify clause 4.1 statement #169
+   * add a list of all specifications being profiled #145
 
    -03
 
