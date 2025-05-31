@@ -420,10 +420,6 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
         </front>
 </reference>
 
-# Combined Issuance of SD-JWT VC and mdocs
-
-* If combined issuance is required, the Batch Credential Endpoint MUST be supported.
-
 # Acknowledgements {#Acknowledgements}
 
 We would like to thank Paul Bastian, Christian Bormann, Mike Jones, Oliver Terbu, Daniel Fett, and Giuseppe De Marco for their valuable feedback and contributions to this specification.
