@@ -30,7 +30,7 @@ organization="SPRIND"
 
 .# Abstract
 
-This document defines a profile of OpenID for Verifiable Credentials in combination with the credential formats IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc] and ISO mdoc [@!ISO.18013-5]. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI], OpenID for Verifiable Presentations [@!OIDF.OID4VP], Self-Issued OpenID Provider v2 [@!OIDF.SIOPv2], IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc], and ISO mdoc [@!ISO.18013-5].
+This document defines a profile of OpenID for Verifiable Credentials in combination with the credential formats IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc] and ISO mdoc [@!ISO.18013-5]. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI], OpenID for Verifiable Presentations [@!OIDF.OID4VP], IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc], and ISO mdoc [@!ISO.18013-5].
 
 {mainmatter}
 
@@ -62,7 +62,6 @@ The following aspects are in scope of this interoperability profile:
 * Profile of OpenID4VP over the W3C Digital Credentials API [@w3c.digital_credentials_api] to present
   * IETF SD-JWT VCs
   * ISO mdocs
-* Protocol for User Authentication by the Wallet at a Verifier (SIOP v2)
 * Profile of IETF SD-JWT VC that includes the following aspects
   * Status management of the Credentials, including revocation
   * Cryptographic Key Binding
@@ -82,7 +81,7 @@ Assumptions made are the following:
 
 The following items are out of scope for the current version of this document, but might be added in future versions:
 
-* Trust Management, i.e. authorization of an issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of  the Verifier to receive certain types of credentials.
+* Trust Management refers to authorization of an Issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of the Verifier to receive certain types of credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
 * Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
 * Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
 * Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
@@ -194,11 +193,11 @@ The following requirements apply for both, the Wallet and the Verifier, unless s
 
 Requirements for both the Wallet and the Verifier:
 
-* The Credential Format Identifier MUST be `mso_mdoc`.
-* ISO mdoc Credential Format specific DCQL parameters as defined in Annex B.3.1 of [@!OIDF.OID4VP] MUST be used.
-* Verifier MAY request more than one Credential in the same request.
+* ISO mdoc Credential Format specific DCQL parameter, `intent_to_retain` defined in Annex B.3.1 of [@!OIDF.OID4VP] MUST be present.
 * When multiple ISO mdocs are being returned, each ISO mdoc MUST be returned in a separate `DeviceResponse` (as defined in 8.3.2.1.2.2 of [@!ISO.18013-5]), each matching to a respective DCQL query. Therefore, the resulting `vp_token` contains multiple `DeviceResponse` instances.
-* The `SessionTranscript` and `Handover` CBOR structures MUST be generated in accordance with Annex B.3.4.1 of [@!OIDF.OID4VP].
+
+Note that the Credential Format Identifier and `SessionTranscript` CBOR structure are defined in [@!OIDF.OID4VP].
+
 
 ## IETF SD-JWT VC specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
 
@@ -206,13 +205,6 @@ Requirements for both the Wallet and the Verifier:
 
 * The Credential Format identifier MUST be `dc+sd-jwt`.
 * IETF SD-JWT VC Credential Format specific DCQL parameters as defined in Section 6.4.1 of [@!OIDF.OID4VP] MUST be used.
-
-# Self-Issued OP v2
-
-To authenticate the user, subject identifier in a Self-Issued ID Token MUST be used as defined in [@!OIDF.SIOPv2].
-
-   * As a way to invoke the Wallet, at least a custom URL scheme `haip://` MUST be supported. Implementations MAY support other ways to invoke the Wallets as agreed by trust frameworks/ecosystems/jurisdictions, not limited to using other custom URL schemes.
-   * `subject_syntax_types_supported` value MUST be `urn:ietf:params:oauth:jwk-thumbprint`
 
 # SD-JWT VCs {#sd-jwt-vc}
 
@@ -324,22 +316,6 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
       </front>
 </reference>
 
-<reference anchor="OIDF.SIOPv2" target="https://openid.net/specs/openid-connect-self-issued-v2-1_0.html">
-  <front>
-    <title>Self-Issued OpenID Provider V2</title>
-    <author ullname="Kristina Yasuda">
-      <organization>Microsoft</organization>
-    </author>
-    <author fullname="Michael B. Jones">
-      <organization>Microsoft</organization>
-    </author>
-   <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
-    </author>
-   <date day="18" month="December" year="2021"/>
-  </front>
-</reference>
-
 <reference anchor="OIDF.ekyc-ida" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0-ID4.html">
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
@@ -426,10 +402,6 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
         </front>
 </reference>
 
-# Combined Issuance of SD-JWT VC and mdocs
-
-* If combined issuance is required, the Batch Credential Endpoint MUST be supported.
-
 # Acknowledgements {#Acknowledgements}
 
 We would like to thank Paul Bastian, Christian Bormann, Mike Jones, Oliver Terbu, Daniel Fett, and Giuseppe De Marco for their valuable feedback and contributions to this specification.
@@ -450,6 +422,7 @@ The technology described in this specification was made available from contribut
 
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
+   * Add small note that establishing trust in and retrieving root certs is out scope
 
    -03
 
