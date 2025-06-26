@@ -30,7 +30,7 @@ organization="SPRIND"
 
 .# Abstract
 
-This document defines a profile of OpenID for Verifiable Credentials in combination with the credential formats IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc] and ISO mdoc [@!ISO.18013-5]. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI], OpenID for Verifiable Presentations [@!OIDF.OID4VP], Self-Issued OpenID Provider v2 [@!OIDF.SIOPv2], IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc], and ISO mdoc [@!ISO.18013-5].
+This document defines a profile of OpenID for Verifiable Credentials in combination with the credential formats IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc] and ISO mdoc [@!ISO.18013-5]. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI], OpenID for Verifiable Presentations [@!OIDF.OID4VP], IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc], and ISO mdoc [@!ISO.18013-5].
 
 {mainmatter}
 
@@ -207,13 +207,6 @@ Requirements for both the Wallet and the Verifier:
 * The Credential Format identifier MUST be `dc+sd-jwt`.
 * IETF SD-JWT VC Credential Format specific DCQL parameters as defined in Section 6.4.1 of [@!OIDF.OID4VP] MUST be used.
 
-# Self-Issued OP v2
-
-To authenticate the user, subject identifier in a Self-Issued ID Token MUST be used as defined in [@!OIDF.SIOPv2].
-
-   * As a way to invoke the Wallet, at least a custom URL scheme `haip://` MUST be supported. Implementations MAY support other ways to invoke the Wallets as agreed by trust frameworks/ecosystems/jurisdictions, not limited to using other custom URL schemes.
-   * `subject_syntax_types_supported` value MUST be `urn:ietf:params:oauth:jwk-thumbprint`
-
 # SD-JWT VCs {#sd-jwt-vc}
 
 This profile defines the following additional requirements for IETF SD-JWT VCs as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
@@ -324,22 +317,6 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
       </front>
 </reference>
 
-<reference anchor="OIDF.SIOPv2" target="https://openid.net/specs/openid-connect-self-issued-v2-1_0.html">
-  <front>
-    <title>Self-Issued OpenID Provider V2</title>
-    <author ullname="Kristina Yasuda">
-      <organization>Microsoft</organization>
-    </author>
-    <author fullname="Michael B. Jones">
-      <organization>Microsoft</organization>
-    </author>
-   <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
-    </author>
-   <date day="18" month="December" year="2021"/>
-  </front>
-</reference>
-
 <reference anchor="OIDF.ekyc-ida" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0-ID4.html">
   <front>
     <title>OpenID Connect for Identity Assurance 1.0</title>
@@ -445,10 +422,6 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
         <date day="4" month="May" year="2023"/>
         </front>
 </reference>
-
-# Combined Issuance of SD-JWT VC and mdocs
-
-* If combined issuance is required, the Batch Credential Endpoint MUST be supported.
 
 # Acknowledgements {#Acknowledgements}
 
