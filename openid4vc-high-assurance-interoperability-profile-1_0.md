@@ -117,6 +117,12 @@ Both the Wallet and the Credential Issuer:
 
 Both Wallet initiated and Issuer initiated issuance is supported.
 
+## Issuer Metadata
+
+When required by ecosystem policies, signed Credential Issuer Metadata as specified in Section 11.2.3 in [@!OIDF.OID4VCI]
+MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer
+Metadata MUST be supported using the `x5c` JOSE header parameter as defined in [@!RFC7515].
+
 ## Credential Offer
 
 * The Grant Type `authorization_code` MUST be supported as defined in Section 4.1.1 in [@!OIDF.OID4VCI]
@@ -420,6 +426,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
+   * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
    * Add small note that establishing trust in and retrieving root certs is out scope
