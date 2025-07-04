@@ -147,7 +147,7 @@ Note: Issuers should be mindful of how long the usage of the refresh token is al
 
 Wallets MUST use wallet attestations as defined in Annex E of [@!OIDF.OID4VCI].
 
-The public key, and optionally a trust chain, used to validate the signature on the Wallet Attestation MUST be included in the `x5c` JOSE header of the Client Attestation JWT.
+The public key certificate, and optionally a trust certificate chain, used to validate the signature on the Wallet Attestation MUST be included in the `x5c` JOSE header of the Client Attestation JWT.
 
 ## Credential Endpoint
 
