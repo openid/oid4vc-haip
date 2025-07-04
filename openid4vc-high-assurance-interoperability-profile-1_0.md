@@ -119,7 +119,7 @@ Both Wallet initiated and Issuer initiated issuance is supported.
 
 ## Issuer Metadata
 
-When required by ecosystem policies, signed Credential Issuer Metadata as specified in Section 11.2.3 in [@!OIDF.OID4VCI]
+When ecosystem policies require Issuer Authentication to a higher level than possible with TLS alone, signed Credential Issuer Metadata as specified in Section 11.2.3 in [@!OIDF.OID4VCI]
 MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer
 Metadata MUST be supported using the `x5c` JOSE header parameter as defined in [@!RFC7515].
 
