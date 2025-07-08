@@ -271,7 +271,7 @@ When using this profile alongside other cryptosuites, each entity SHOULD make it
 
 # Hash Algoritms
 
-The hash algorithm SHA256 MUST be supported by all the entities to generate and validate the digests in the IETF SD-JWT VC and ISO mdoc.
+The hash algorithm SHA-256 MUST be supported by all the entities to generate and validate the digests in the IETF SD-JWT VC and ISO mdoc.
 
 When using this profile alongside other hash algorithms, each entity SHOULD make it explicit in its metadata which other algorithms are supported.
 
