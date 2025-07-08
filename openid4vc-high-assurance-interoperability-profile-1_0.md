@@ -46,57 +46,13 @@ A full list of the open standards used in this profile can be found in Overview 
 
 ## Audience Target audience/Usage
 
-The audience of the document is implementers that require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
+The audience of the document is implementers that require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes anyone implementing [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
 
 # Terminology
 
-This specification uses the terms "Holder", "Issuer", "Verifier", "Wallet", "Wallet Attestation", "Credential Type" and "Verifiable Credential" as defined in @!OIDF.OID4VCI] and [@!OIDF.OID4VP].
+This specification uses the terms "Holder", "Issuer", "Verifier", "Wallet", "Wallet Attestation", "Credential Type" and "Verifiable Credential" as defined in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP].
 
 # Scope
-
-The following aspects are in scope of this interoperability profile:
-
-* Profile of OpenID4VCI to issue IETF SD-JWT VCs, including
-  * Wallet Attestation
-* Profile of OpenID4VP to present IETF SD-JWT VCs
-* Profile of OpenID4VP over the W3C Digital Credentials API [@w3c.digital_credentials_api] to present
-  * IETF SD-JWT VCs
-  * ISO mdocs
-* Profile of IETF SD-JWT VC that includes the following aspects
-  * Status management of the Credentials, including revocation
-  * Cryptographic Key Binding
-  * Issuer key resolution
-  * Issuer identification (as prerequisite for trust management)
-* Crypto Suites
-
-Note that when OpenID4VP is used, the Wallet and the Verifier can either be remote or in-person.
-
-Assumptions made are the following:
-
-* The Issuers and Verifiers cannot pre-discover Wallet’s capability
-* The Issuer is talking to the Wallet supporting the features defined in this profile (via Wallet invocation mechanism)
-* There are mechanisms in place for Verifiers to discover Wallets' and Issuers' capabilities
-* There are mechanisms in place for Wallets to discover Verifiers' capabilities  
-* There are mechanisms in place for Issuers to discover Wallets' capabilities
-
-
-## Out of Scope
-
-The following items are out of scope for the current version of this document, but might be added in future versions:
-
-* Trust Management refers to authorization of an Issuer to issue certain types of Credentials, authorization of the Wallet to be issued certain types of Credentials, authorization of the Verifier to receive certain types of Credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
-* Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
-* Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
-* Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
-defined in [@ISO.18013-7]. For more details, also see Annex B.3 in [@!OIDF.OID4VP].
-
-## Scenarios/Business Requirements
-
-* Combined Issuance of IETF SD-JWT VC and ISO mdoc
-* Both issuer-initiated and wallet-initiated issuance
-* eIDAS PID and (Q)EAA as defined in eIDAS ARF 1.0
-
-## Standards Requirements
 
 This specification enables interoperable implementations of the following flows:
 
@@ -108,6 +64,56 @@ This specification enables interoperable implementations of the following flows:
 Implementations of this specification do not have to implement all of the flows listed above, but they MUST be compliant to all of the requirements for a particular flow they chose to implement.
 
 A parameter that is listed as optional to be implemented in a specification that is being profiled (i.e., OpenID4VCI, OpenID4VP, W3C Digital Credentials API, IETF SD-JWT VC, and ISO mdoc) remains optional unless it is stated otherwise in this specification.
+
+Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
+
+Profile of IETF SD-JWT VC defines the following aspects
+  * Status management of the Credentials, including revocation
+  * Cryptographic Key Binding
+  * Issuer key resolution
+  * Issuer identification (as prerequisite for trust management)
+
+Mandatory to implement crypto suites are defined for all of the flows.
+
+Note that when OpenID4VP is used, the Wallet and the Verifier can either be remote or in-person.
+
+## Assumptions
+
+Assumptions made are the following:
+
+* The Issuers and Verifiers cannot pre-discover Wallet’s capability
+* The Issuer is talking to the Wallet supporting the features defined in this profile (via Wallet invocation mechanism)
+* There are mechanisms in place for Verifiers to discover Wallets' and Issuers' capabilities
+* There are mechanisms in place for Wallets to discover Verifiers' capabilities  
+* There are mechanisms in place for Issuers to discover Wallets' capabilities
+
+## Scenarios/Business Requirements
+
+* Combined Issuance of IETF SD-JWT VC and ISO mdoc
+* Both issuer-initiated and wallet-initiated issuance
+* Presentation and Issuance of PID and (Q)EAA as defined in Architecture and Reference Framework [@EU.ARF] implementing [@eIDAS2.0].
+
+## Standards Requirements
+
+The standards that are being profiled in this specification are:
+
+* OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI]
+* OpenID for Verifiable Presentations [@!OIDF.OID4VP]
+* W3C Digital Credentials API [@w3c.digital_credentials_api]
+* SD-JWT-based Verifiable Credentials (SD-JWT VC) [@!I-D.ietf-oauth-sd-jwt-vc]
+* ISO/IEC 18013-5:2021 Personal identification — ISO-compliant driving licence Part 5: Mobile driving licence (mDL) application [@!ISO.18013-5]
+
+Note that these standards in turn build upon other underlying standards, and requirements in those underlying standards also need to be followed.
+
+## Out of Scope
+
+The following items are out of scope for the current version of this document, but might be added in future versions:
+
+* Trust Management refers to authorization of an Issuer to issue certain types of credentials, authorization of the Wallet to be issued certain types of credentials, authorization of the Verifier to receive certain types of credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
+* Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
+* Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
+* Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
+defined in [@ISO.18013-7]. For more details, also see Annex B.3 in [@!OIDF.OID4VP].
 
 # OpenID for Verifiable Credential Issuance
 
@@ -128,7 +134,7 @@ Both Wallet initiated and Issuer initiated issuance is supported.
 
 Note: The Authorization Code flow does not require a Credential Offer from the Issuer to the Wallet. However, it is included in the feature set to allow for Issuer initiated Credential issuance.
 
-Both sending Credential Offer same-device and cross-device is supported.
+Both Issuer and Wallet MUST support Credential Offer in both same-device and cross-device flows.
 
 ## Authorization Endpoint
 
@@ -174,7 +180,7 @@ Requirements for both the Wallet and the Verifier:
 * Response type MUST be `vp_token`.
 * Response mode MUST be `direct_post.jwt`. The Verifier MUST return `redirect_uri` in response to the HTTP POST request from the Wallet, where the Wallet redirects the User to, as defined in Section 8.2 of [@!OIDF.OID4VP]. Implementation considerations for the response mode `direct_post.jwt` are given in Section 14.3 of [@!OIDF.OID4VP].
 * Authorization Request MUST be sent using the `request_uri` parameter as defined in JWT-Secured Authorization Request (JAR) [@!RFC9101].
-* The Client Identifier Scheme as introduced in Section 5.10 of [@!OIDF.OID4VP] MUST be either `x509_san_dns` or `verifier_attestation`. The Wallet MUST support both. The Verifier MUST support at least one.
+* The Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP] MUST be either `x509_san_dns` or `verifier_attestation`. The Wallet MUST support both. The Verifier MUST support at least one.
 * To obtain the Issuer's public key for Verification, Verifiers MUST support Web-based key resolution, as defined in Section 5 of [@!I-D.ietf-oauth-sd-jwt-vc]. The JOSE header `kid` MUST be used to identify the respective key.
 * The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used.
 
@@ -231,7 +237,7 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 * The `vct` JWT claim as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
 * The `cnf` claim [@!RFC7800] MUST conform to the definition given in [@!I-D.ietf-oauth-sd-jwt-vc]. Implementations conforming to this profile MUST include the JSON Web Key [@!RFC7517] in the `jwk` sub claim.
 
-Note: Currently this profile only supports presentation of Credentials with cryptographic Holder Binding: the Holder's signature is required to proof the Credential is presented by the Holder it was issued to. This profile might support claim-based and biometrics-based Holder binding once OpenID for Verifiable Credentials adds support for other forms of Holder Binding. See [Presenting a VC without a VP using OpenID4VP](https://bitbucket.org/openid/connect/issues/1537/presenting-vc-without-a-vp-using-openid4vp).
+Any of the flows defined in this specification MUST be used with cryptographic holder binding.
 
 Note: Re-using the same Credential across Verifiers, or re-using the same JWK value across multiple Credentials gives colluding Verifiers a mechanism to correlate the User. There are currently two known ways to address this with SD-JWT VCs. First is to issue multiple instances of the same Credentials with different JWK values, so that if each instance of the Credential is used at only one Verifier, it can be reused multiple times. Another is to use each Credential only once (ephemeral Credentials). It is RECOMMENDED to adopt one of these mechanisms.
 
@@ -353,9 +359,29 @@ The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
         <front>
           <title>ISO/IEC 18013-5:2021 Personal identification — ISO-compliant driving license — Part 5: Mobile driving license (mDL)  application</title>
           <author>
-            <organization> ISO/IEC JTC 1/SC 17 Cards and security devices for personal identification</organization>
+            <organization>ISO/IEC JTC 1/SC 17 Cards and security devices for personal identification</organization>
           </author>
           <date year="2021"/>
+        </front>
+</reference>
+
+<reference anchor="EU.ARF" target="https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/latest/">
+        <front>
+          <title>European Digital Identity Wallet Architecture and Reference Framework</title>
+          <author>
+            <organization>European Commission</organization>
+          </author>
+          <date year="2025"/>
+        </front>
+</reference>
+
+<reference anchor="eIDAS2.0" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183">
+        <front>
+          <title>REGULATION (EU) 2024/1183 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 11 April 2024 amending Regulation (EU) No 910/2014 as regards establishing the European Digital Identity Framework</title>
+          <author>
+            <organization>European Union</organization>
+          </author>
+          <date year="2024"/>
         </front>
 </reference>
 
@@ -431,6 +457,11 @@ The technology described in this specification was made available from contribut
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
    * Add small note that establishing trust in and retrieving root certs is out scope
+   * Update wording from Client Identifier Scheme to Client Identifier Prefix #182
+   * fix reference to ARF #177
+   * Old link in section 8 & clarify a note on claim based binding in OpenID4VP in HAIP #183
+   * Clarify clause 4.1 statement #169
+   * add a list of all specifications being profiled #145
 
    -03
 
