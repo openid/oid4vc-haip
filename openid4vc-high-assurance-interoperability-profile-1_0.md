@@ -7,7 +7,7 @@ keyword = ["security", "openid4vc", "sd-jwt", "sd-jwt-vc", "mdoc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid4vc-high-assurance-interoperability-profile-1_0-02"
+value = "openid4vc-high-assurance-interoperability-profile-1_0-04"
 status = "standard"
 
 [[author]]
@@ -30,7 +30,7 @@ organization="SPRIND"
 
 .# Abstract
 
-This document defines a profile of OpenID for Verifiable Credentials in combination with the credential formats IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc] and ISO mdoc [@!ISO.18013-5]. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI], OpenID for Verifiable Presentations [@!OIDF.OID4VP], Self-Issued OpenID Provider v2 [@!OIDF.SIOPv2], IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc], and ISO mdoc [@!ISO.18013-5].
+This document defines a profile of OpenID for Verifiable Credentials in combination with the credential formats IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc] and ISO mdoc [@!ISO.18013-5]. The aim is to select features and to define a set of requirements for the existing specifications to enable interoperability among Issuers, Wallets and Verifiers of Credentials where a high level of security and privacy is required. The profiled specifications include OpenID for Verifiable Credential Issuance [@!OIDF.OID4VCI], OpenID for Verifiable Presentations [@!OIDF.OID4VP], IETF SD-JWT VC [@!I-D.ietf-oauth-sd-jwt-vc], and ISO mdoc [@!ISO.18013-5].
 
 {mainmatter}
 
@@ -62,7 +62,6 @@ The following aspects are in scope of this interoperability profile:
 * Profile of OpenID4VP over the W3C Digital Credentials API [@w3c.digital_credentials_api] to present
   * IETF SD-JWT VCs
   * ISO mdocs
-* Protocol for User Authentication by the Wallet at a Verifier (SIOP v2)
 * Profile of IETF SD-JWT VC that includes the following aspects
   * Status management of the Credentials, including revocation
   * Cryptographic Key Binding
@@ -83,7 +82,7 @@ Assumptions made are the following:
 
 The following items are out of scope for the current version of this document, but might be added in future versions:
 
-* Trust Management, i.e. authorization of an Issuer to issue certain types of Credentials, authorization of the Wallet to be issued certain types of Credentials, authorization of the Verifier to receive certain types of Credentials.
+* Trust Management refers to authorization of an Issuer to issue certain types of Credentials, authorization of the Wallet to be issued certain types of Credentials, authorization of the Verifier to receive certain types of Credentials. Although X.509 PKI is extensively utilized in this profile, the methods for establishing trust or obtaining root certificates are out of the scope of this specification.
 * Protocol for presentation of Verifiable Credentials for offline use-cases, e.g. over BLE.
 * Profile of OpenID4VCI to issue ISO mdoc [@!ISO.18013-5] is defined in ISO 23220-3.
 * Profile of OpenID4VP without using W3C Digital Credentials API to present ISO mdocs is
@@ -153,7 +152,13 @@ The public key, and optionally a trust chain, used to validate the signature on 
 
 ## Credential Endpoint
 
-* The `JWT` proof type MUST be supported.
+* The following proof types MUST be supported:
+  * `jwt` proof type using `key_attestation`
+  * `attestation` proof type
+
+### Key Attestation {#key-attestation}
+
+Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
 ## Server Metadata
 
@@ -189,11 +194,11 @@ The following requirements apply for both, the Wallet and the Verifier, unless s
 
 Requirements for both the Wallet and the Verifier:
 
-* The Credential Format Identifier MUST be `mso_mdoc`.
-* ISO mdoc Credential Format specific DCQL parameters as defined in Annex B.3.1 of [@!OIDF.OID4VP] MUST be used.
-* Verifier MAY request more than one Credential in the same request.
+* ISO mdoc Credential Format specific DCQL parameter, `intent_to_retain` defined in Annex B.3.1 of [@!OIDF.OID4VP] MUST be present.
 * When multiple ISO mdocs are being returned, each ISO mdoc MUST be returned in a separate `DeviceResponse` (as defined in 8.3.2.1.2.2 of [@!ISO.18013-5]), each matching to a respective DCQL query. Therefore, the resulting `vp_token` contains multiple `DeviceResponse` instances.
-* The `SessionTranscript` and `Handover` CBOR structures MUST be generated in accordance with Annex B.3.4.1 of [@!OIDF.OID4VP].
+
+Note that the Credential Format Identifier and `SessionTranscript` CBOR structure are defined in [@!OIDF.OID4VP].
+
 
 ## IETF SD-JWT VC specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
 
@@ -201,13 +206,6 @@ Requirements for both the Wallet and the Verifier:
 
 * The Credential Format identifier MUST be `dc+sd-jwt`.
 * IETF SD-JWT VC Credential Format specific DCQL parameters as defined in Section 6.4.1 of [@!OIDF.OID4VP] MUST be used.
-
-# Self-Issued OP v2
-
-To authenticate the User, subject identifier in a Self-Issued ID Token MUST be used as defined in [@!OIDF.SIOPv2].
-
-   * As a way to invoke the Wallet, at least a custom URL scheme `haip://` MUST be supported. Implementations MAY support other ways to invoke the Wallets as agreed by trust frameworks/ecosystems/jurisdictions, not limited to using other custom URL schemes.
-   * `subject_syntax_types_supported` value MUST be `urn:ietf:params:oauth:jwk-thumbprint`
 
 # SD-JWT VCs {#sd-jwt-vc}
 
@@ -283,6 +281,10 @@ When using this profile alongside other hash algorithms, each entity SHOULD make
 
 `iat` and `exp` JWT claims express both the validity period of both the signature and the claims about the subject, unless there is a separate claim used to express the validity of the claims.
 
+# Security Considerations {#security_considerations}
+
+The security considerations in [@!OIDF.OID4VCI] and [@!OIDF.OID4VP] apply.
+
 {backmatter}
 
 <reference anchor="OIDF.OID4VCI" target="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">
@@ -318,22 +320,6 @@ When using this profile alongside other hash algorithms, each entity SHOULD make
         </author>
        <date day="27" month="January" year="2025"/>
       </front>
-</reference>
-
-<reference anchor="OIDF.SIOPv2" target="https://openid.net/specs/openid-connect-self-issued-v2-1_0.html">
-  <front>
-    <title>Self-Issued OpenID Provider V2</title>
-    <author ullname="Kristina Yasuda">
-      <organization>Microsoft</organization>
-    </author>
-    <author fullname="Michael B. Jones">
-      <organization>Microsoft</organization>
-    </author>
-   <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
-    </author>
-   <date day="18" month="December" year="2021"/>
-  </front>
 </reference>
 
 <reference anchor="OIDF.ekyc-ida" target="https://openid.net/specs/openid-connect-4-identity-assurance-1_0-ID4.html">
@@ -422,10 +408,6 @@ When using this profile alongside other hash algorithms, each entity SHOULD make
         </front>
 </reference>
 
-# Combined Issuance of SD-JWT VC and mdocs
-
-* If combined issuance is required, the Batch Credential Endpoint MUST be supported.
-
 # Acknowledgements {#Acknowledgements}
 
 We would like to thank Paul Bastian, Christian Bormann, Mike Jones, Oliver Terbu, Daniel Fett, and Giuseppe De Marco for their valuable feedback and contributions to this specification.
@@ -434,13 +416,24 @@ We would like to thank Paul Bastian, Christian Bormann, Mike Jones, Oliver Terbu
 
 Copyright (c) 2025 The OpenID Foundation.
 
-The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
+The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft, Final Specification, or Final Specification Incorporating Errata Corrections solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts, Final Specifications, and Final Specification Incorporating Errata Corrections based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
-The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that MAY cover technology that MAY be required to practice this specification.
+The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy (found at openid.net) requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. OpenID invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
 
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -04
+
+   * add key attestation to OpenID4VCI
+   * clarify text regarding mdoc specific parameters
+   * Add small note that establishing trust in and retrieving root certs is out scope
+
+   -03
+
+   * Add initial security considerations section
+   * Update notices section to match latest OIDF process document
 
    -02
 
