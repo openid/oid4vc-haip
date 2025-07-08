@@ -132,7 +132,7 @@ Both Wallet initiated and Issuer initiated issuance is supported.
 
 Note: The Authorization Code flow does not require a Credential Offer from the Issuer to the Wallet. However, it is included in the feature set to allow for Issuer initiated Credential issuance.
 
-Both Issuer and Wallet MUST support sending Credential Offer both same-device and cross-device.
+Both Issuer and Wallet MUST support Credential Offer in both same-device and cross-device flows.
 
 ## Authorization Endpoint
 
