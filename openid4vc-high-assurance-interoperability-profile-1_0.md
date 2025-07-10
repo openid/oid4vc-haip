@@ -168,9 +168,12 @@ The public key certificate, and optionally a trust certificate chain, used to va
 
 Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
-## Server Metadata
+## Issuer Metadata
 
-* The Credential Issuer MUST publish a mapping of every Credential Type it supports to a scope value.
+The Authorization Server MUST support metadata according to [@!RFC6749].
+
+The Credential Issuer MUST support metadata according to Section 11.2 of [@!OIDF.OID4VCI].
+The Credential Issuer MUST publish a mapping of every Credential Configuration it supports to a scope value.
 
 # OpenID for Verifiable Presentations profile for IETF SD-JWT VC
 
@@ -454,6 +457,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
+   * Authorization Server and Credential Issuer must support metadata
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
    * Add small note that establishing trust in and retrieving root certs is out scope
