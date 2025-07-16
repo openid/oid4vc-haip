@@ -67,7 +67,8 @@ A parameter that is listed as optional to be implemented in a specification that
 
 Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
 
-Profile of IETF SD-JWT VC defines the following aspects
+Profile of IETF SD-JWT VC defines the following aspects:
+
   * Status management of the Credentials, including revocation
   * Cryptographic Key Binding
   * Issuer key resolution
