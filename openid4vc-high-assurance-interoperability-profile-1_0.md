@@ -7,7 +7,7 @@ keyword = ["security", "openid4vc", "sd-jwt", "sd-jwt-vc", "mdoc"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid4vc-high-assurance-interoperability-profile-1_0-04"
+value = "openid4vc-high-assurance-interoperability-profile-1_0-05"
 status = "standard"
 
 [[author]]
@@ -65,9 +65,9 @@ Implementations of this specification do not have to implement all of the flows 
 
 A parameter that is listed as optional to be implemented in a specification that is being profiled (i.e., OpenID4VCI, OpenID4VP, W3C Digital Credentials API, IETF SD-JWT VC, and ISO mdoc) remains optional unless it is stated otherwise in this specification.
 
-Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
+The Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
 
-Profile of IETF SD-JWT VC defines the following aspects
+The Profile of IETF SD-JWT VC defines the following aspects
   * Status management of the Credentials, including revocation
   * Cryptographic Key Binding
   * Issuer key resolution
@@ -92,6 +92,7 @@ Assumptions made are the following:
 * Combined Issuance of IETF SD-JWT VC and ISO mdoc
 * Both issuer-initiated and wallet-initiated issuance
 * Presentation and Issuance of PID and (Q)EAA as defined in Architecture and Reference Framework [@EU.ARF] implementing [@eIDAS2.0].
+* Issuance and presentation of credentials with and without cryptographic holder binding
 
 ## Standards Requirements
 
@@ -166,7 +167,7 @@ The public key certificate, and optionally a trust certificate chain, used to va
 
 ### Key Attestation {#key-attestation}
 
-Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
+Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used and the newly issued credential instances shall be bound to a public key for cryptograohic holder binding, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
 ## Server Metadata
 
@@ -227,7 +228,7 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 | iss | MUST |[@!RFC7519], Section 4.1.1 |
 | iat | MUST |[@!RFC7519], Section 4.1.6 |
 | exp | SHOULD (at the discretion of the Issuer) | [@!RFC7519], Section 4.1.4 |
-| cnf |	MUST |	[@!RFC7800]|
+| cnf |	MUST (if credential has cryptographic holder binding) |	[@!RFC7800]|
 | vct |	MUST | [@!I-D.ietf-oauth-sd-jwt-vc]|
 |status| SHOULD (at the discretion of the Issuer)| [@!I-D.ietf-oauth-status-list]|
 
@@ -236,8 +237,6 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 * The `iss` claim MUST be an HTTPS URL. The `iss` value is used to obtain Issuer’s signing key as defined in (#issuer-key-resolution).
 * The `vct` JWT claim as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
 * The `cnf` claim [@!RFC7800] MUST conform to the definition given in [@!I-D.ietf-oauth-sd-jwt-vc]. Implementations conforming to this profile MUST include the JSON Web Key [@!RFC7517] in the `jwk` sub claim.
-
-Any of the flows defined in this specification MUST be used with cryptographic holder binding.
 
 Note: Re-using the same Credential across Verifiers, or re-using the same JWK value across multiple Credentials gives colluding Verifiers a mechanism to correlate the User. There are currently two known ways to address this with SD-JWT VCs. First is to issue multiple instances of the same Credentials with different JWK values, so that if each instance of the Credential is used at only one Verifier, it can be reused multiple times. Another is to use each Credential only once (ephemeral Credentials). It is RECOMMENDED to adopt one of these mechanisms.
 
@@ -258,7 +257,7 @@ Note: The Issuer MAY decide to support both options. In which case, it is at the
 
 ### Cryptographic Holder Binding between VC and VP
 
-* For Cryptographic Holder Binding, a KB-JWT, as defined in [@!I-D.ietf-oauth-sd-jwt-vc], MUST always be present when presenting an SD-JWT VC.
+* If the credential has cryptographic holder binding, a KB-JWT, as defined in [@!I-D.ietf-oauth-sd-jwt-vc], MUST always be present when presenting an SD-JWT VC.
 
 ## OpenID4VC Credential Format Profile {#vc_sd_jwt_profile}
 
@@ -451,6 +450,10 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -05
+
+   * Added support for credentials without cryptographic holder binding
 
    -04
 
