@@ -256,7 +256,7 @@ Note: In some Credential Types, it is not desirable to include an expiration dat
 
 ## Issuer identification and key resolution to validate an issued Credential {#issuer-key-resolution}
 
-This profile supports one mandatory way to represent and resolve the key required to validate the issuer signature of an SD-JWT VC, x.509 certificates. This MUST be supported by all entities (Issuer, Wallet, Verifier):
+This profile mandates the support for x.509 certifications to represent and resolve the key required to validate the issuer signature of an SD-JWT VC. This MUST be supported by all entities (Issuer, Wallet, Verifier):
 
 * X.509 certificates: the SD-JWT VC contains the issuer's certificate along with a trust chain in the `x5c` JOSE header.
 
