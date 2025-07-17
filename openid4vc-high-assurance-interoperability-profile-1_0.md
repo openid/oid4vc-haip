@@ -258,7 +258,7 @@ Note: In some Credential Types, it is not desirable to include an expiration dat
 
 This profile supports one mandatory way to represent and resolve the key required to validate the issuer signature of an SD-JWT VC, x.509 certificates. This MUST be supported by all entities (Issuer, Wallet, Verifier):
 
-* x.509 certificates: the SD-JWT VC contains the issuer's certificate along with a trust chain in the `x5c` JOSE header. In this case, the `iss` value MUST be an URL with a FQDN matching a `dNSName` Subject Alternative Name (SAN) [@!RFC5280] entry in the leaf certificate.
+* X.509 certificates: the SD-JWT VC contains the issuer's certificate along with a trust chain in the `x5c` JOSE header.
 
 ### Cryptographic Holder Binding between VC and VP
 
