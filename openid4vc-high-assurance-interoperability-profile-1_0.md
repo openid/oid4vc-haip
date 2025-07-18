@@ -125,7 +125,7 @@ Both the Wallet and the Credential Issuer:
 * MUST support sender-constrained tokens using the mechanism defined in [@!RFC9449].
 * MUST support [@!RFC7636] with `S256` as the code challenge method.
 
-Both Wallet initiated and Issuer initiated issuance is supported.
+Both Wallet initiated and Issuer initiated issuance are supported.
 
 ## Issuer Metadata
 
@@ -284,7 +284,7 @@ Issuers, Holders, and Verifiers MUST support P-256 (secp256r1) as a key type wit
 
 When using this profile alongside other cryptosuites, each entity SHOULD make it explicit in its metadata which other algorithms and key types are supported for the cryptographic operations.
 
-# Hash Algoritms
+# Hash Algorithms
 
 The hash algorithm SHA-256 MUST be supported by all the entities to generate and validate the digests in the IETF SD-JWT VC and ISO mdoc.
 
