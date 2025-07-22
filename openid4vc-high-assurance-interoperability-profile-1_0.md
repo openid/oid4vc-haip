@@ -189,8 +189,7 @@ Requirements for both the Wallet and the Verifier:
 * Response type MUST be `vp_token`.
 * Response mode MUST be `direct_post.jwt`. The Verifier MUST return `redirect_uri` in response to the HTTP POST request from the Wallet, where the Wallet redirects the User to, as defined in Section 8.2 of [@!OIDF.OID4VP]. Implementation considerations for the response mode `direct_post.jwt` are given in Section 14.3 of [@!OIDF.OID4VP].
 * Authorization Request MUST be sent using the `request_uri` parameter as defined in JWT-Secured Authorization Request (JAR) [@!RFC9101].
-* The Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP] MUST be either `x509_san_dns` or `verifier_attestation`. The Wallet MUST support both. The Verifier MUST support at least one.
-* To obtain the Issuer's public key for Verification, Verifiers MUST support Web-based key resolution, as defined in Section 5 of [@!I-D.ietf-oauth-sd-jwt-vc]. The JOSE header `kid` MUST be used to identify the respective key.
+* For Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported by the Wallet and used by the Verifier.
 * The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used.
 
 # OpenID for Verifiable Presentations over W3C Digital Credentials API
@@ -245,6 +244,7 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 * The `iss` claim MUST be an HTTPS URL. The `iss` value is used to obtain Issuer’s signing key as defined in (#issuer-key-resolution).
 * The `vct` JWT claim as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
 * The `cnf` claim [@!RFC7800] MUST conform to the definition given in [@!I-D.ietf-oauth-sd-jwt-vc]. Implementations conforming to this profile MUST include the JSON Web Key [@!RFC7517] in the `jwk` sub claim.
+* The public key used to validate the signature on the Status List Token MUST be included in the `x5c` JOSE header of the Token.
 
 Any of the flows defined in this specification MUST be used with cryptographic holder binding.
 
@@ -258,12 +258,7 @@ Note: In some Credential Types, it is not desirable to include an expiration dat
 
 ## Issuer identification and key resolution to validate an issued Credential {#issuer-key-resolution}
 
-This profile supports two ways to represent and resolve the key required to validate the Issuer signature of an SD-JWT VC, the web PKI-based key resolution and the x.509 certificates.
-
-* Web-based key resolution: The key used to validate the Issuer’s signature on the SD-JWT VC MUST be obtained from the SD-JWT VC Issuer's metadata as defined in Section 5 of [@!I-D.ietf-oauth-sd-jwt-vc]. The JOSE header `kid` MUST be used to identify the respective key.
-* x.509 certificates: the SD-JWT VC contains the Issuer's certificate along with a trust chain in the `x5c` JOSE header. In this case, the `iss` value MUST be an URL with a FQDN matching a `dNSName` Subject Alternative Name (SAN) [@!RFC5280] entry in the leaf certificate.
-
-Note: The Issuer MAY decide to support both options. In which case, it is at the discretion of the Wallet and the Verifier which key to use for the Issuer signature validation.
+This profile mandates the support for X.509 certificate-based key resolution to validate the issuer signature of an SD-JWT VC. This MUST be supported by all entities (Issuer, Wallet, Verifier). The SD-JWT VC MUST contain the credential issuer's certificate along with a trust chain in the `x5c` JOSE header parameter as described in section 3.5 of [@!I-D.ietf-oauth-sd-jwt-vc].
 
 ### Cryptographic Holder Binding between VC and VP
 
@@ -463,6 +458,9 @@ The technology described in this specification was made available from contribut
 
    -04
 
+   * x509_san_dns & verifier_attestations client id prefixes are no longer permitted, x509_hash must be used
+   * x.509 certificates are now the mandatory mechanism for SD-JWT VC issuer key resolution
+   * `x5c` header in Status List Token must be present
    * clarify that Wallet Attestations must not contain linkable information.
    * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
