@@ -1,5 +1,5 @@
 %%%
-title = "OpenID4VC High Assurance Interoperability Profile - Editor's draft"
+title = "OpenID4VC High Assurance Interoperability Profile 1.0 - Editor's draft"
 abbrev = "openid4vc-high-assurance-interoperability-profile"
 ipr = "none"
 workgroup = "Digital Credentials Protocols"
@@ -67,7 +67,8 @@ A parameter that is listed as optional to be implemented in a specification that
 
 Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
 
-Profile of IETF SD-JWT VC defines the following aspects
+Profile of IETF SD-JWT VC defines the following aspects:
+
   * Status management of the Credentials, including revocation
   * Cryptographic Key Binding
   * Issuer key resolution
@@ -125,6 +126,12 @@ Both the Wallet and the Credential Issuer:
 * MUST support [@!RFC7636] with `S256` as the code challenge method.
 
 Both Wallet initiated and Issuer initiated issuance is supported.
+
+## Issuer Metadata
+
+When ecosystem policies require Issuer Authentication to a higher level than possible with TLS alone, signed Credential Issuer Metadata as specified in Section 11.2.3 in [@!OIDF.OID4VCI]
+MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer
+Metadata MUST be supported using the `x5c` JOSE header parameter as defined in [@!RFC7515].
 
 ## Credential Offer
 
@@ -457,6 +464,7 @@ The technology described in this specification was made available from contribut
    -04
 
    * clarify that Wallet Attestations must not contain linkable information.
+   * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
    * Add small note that establishing trust in and retrieving root certs is out scope
