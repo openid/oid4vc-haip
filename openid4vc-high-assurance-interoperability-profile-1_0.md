@@ -165,6 +165,8 @@ Wallets MUST use Wallet Attestations as defined in Annex E of [@!OIDF.OID4VCI].
 
 The public key certificate, and optionally a trust certificate chain, used to validate the signature on the Wallet Attestation MUST be included in the `x5c` JOSE header of the Client Attestation JWT.
 
+Individual Wallet Attestations MUST be used for each Issuer and they MUST not contain unique identifiers that would enable linkability between issuance processes. See section 14.4.4 of [@!OIDF.OID4VCI] for details on the Wallet Attestation subject.
+
 ## Credential Endpoint
 
 * The following proof types MUST be supported:
@@ -461,6 +463,7 @@ The technology described in this specification was made available from contribut
 
    -04
 
+   * clarify that Wallet Attestations must not contain linkable information.
    * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
