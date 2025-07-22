@@ -459,6 +459,8 @@ The technology described in this specification was made available from contribut
    -04
 
    * x509_san_dns & verifier_attestations client id prefixes are no longer permitted, x509_hash must be used
+   * x.509 certificates are now the mandatory mechanism for SD-JWT VC issuer key resolution
+   * `x5c` header in Status List Token must be present
    * clarify that Wallet Attestations must not contain linkable information.
    * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
