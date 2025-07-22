@@ -46,7 +46,7 @@ A full list of the open standards used in this profile can be found in Overview 
 
 ## Audience Target audience/Usage
 
-The audience of the document is implementers that require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes anyone implementing [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
+The audience of the document is implementers who require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes anyone implementing [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
 
 # Terminology
 
@@ -125,7 +125,7 @@ Both the Wallet and the Credential Issuer:
 * MUST support sender-constrained tokens using the mechanism defined in [@!RFC9449].
 * MUST support [@!RFC7636] with `S256` as the code challenge method.
 
-Both Wallet initiated and Issuer initiated issuance is supported.
+Both Wallet initiated and Issuer initiated issuance are supported.
 
 ## Issuer Metadata
 
@@ -146,7 +146,7 @@ Both Issuer and Wallet MUST support Credential Offer in both same-device and cro
 ## Authorization Endpoint
 
 * MUST use Pushed Authorization Requests (PAR) [@!RFC9126] to send the Authorization Request.
-* Wallets MUST authenticate itself at the PAR endpoint using the same rules as defined in (#token-endpoint) for client authentication at the token endpoint.
+* Wallets MUST authenticate themselves at the PAR endpoint using the same rules as defined in (#token-endpoint) for client authentication at the token endpoint.
 * MUST use the `scope` parameter to communicate Credential Type(s) to be issued. The scope value MUST map to a specific Credential Type. The scope value may be pre-agreed, obtained from the Credential Offer, or the Credential Issuer Metadata.
 * The `client_id` value in the PAR request MUST be a string that the Wallet has used as the `sub` value in the client attestation JWT.
 
@@ -164,6 +164,8 @@ Note: Issuers SHOULD be mindful of how long the usage of the refresh token is al
 Wallets MUST use Wallet Attestations as defined in Annex E of [@!OIDF.OID4VCI].
 
 The public key certificate, and optionally a trust certificate chain, used to validate the signature on the Wallet Attestation MUST be included in the `x5c` JOSE header of the Client Attestation JWT.
+
+Individual Wallet Attestations MUST be used for each Issuer and they MUST not contain unique identifiers that would enable linkability between issuance processes. See section 14.4.4 of [@!OIDF.OID4VCI] for details on the Wallet Attestation subject.
 
 ## Credential Endpoint
 
@@ -279,7 +281,7 @@ Issuers, Holders, and Verifiers MUST support P-256 (secp256r1) as a key type wit
 
 When using this profile alongside other cryptosuites, each entity SHOULD make it explicit in its metadata which other algorithms and key types are supported for the cryptographic operations.
 
-# Hash Algoritms
+# Hash Algorithms
 
 The hash algorithm SHA-256 MUST be supported by all the entities to generate and validate the digests in the IETF SD-JWT VC and ISO mdoc.
 
@@ -457,6 +459,7 @@ The technology described in this specification was made available from contribut
    -04
 
    * x509_san_dns & verifier_attestations client id prefixes are no longer permitted, x509_hash must be used
+   * clarify that Wallet Attestations must not contain linkable information.
    * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
