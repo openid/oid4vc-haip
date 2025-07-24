@@ -175,7 +175,9 @@ Individual Wallet Attestations MUST be used for each Issuer and they MUST not co
 
 ### Key Attestation {#key-attestation}
 
-Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
+Wallets MUST support key attestations. If interoperability on the level of key attestations is required, such key attestations MUST conform to the definition in Annex D of [@!OIDF.OID4VCI], otherwise other key attestations formats can be used. 
+
+If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
 ## Server Metadata
 
