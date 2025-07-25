@@ -133,7 +133,7 @@ When ecosystem policies require Issuer Authentication to a higher level than pos
 MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer
 Metadata MUST be supported using the `x5c` JOSE header parameter as defined in [@!RFC7515].
 
-If the Issuer supports Credential Configurations that require key binding, the `nonce_endpoint` MUST be present in the Credential Issuer Metadata.
+If the Issuer supports Credential Configurations that require key binding indicated by `cryptographic_binding_methods_supported`, the `nonce_endpoint` MUST be present in the Credential Issuer Metadata.
 
 ## Credential Offer
 
