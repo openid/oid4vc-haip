@@ -190,7 +190,7 @@ Requirements for both the Wallet and the Verifier:
 * Response mode MUST be `direct_post.jwt`. The Verifier MUST return `redirect_uri` in response to the HTTP POST request from the Wallet, where the Wallet redirects the User to, as defined in Section 8.2 of [@!OIDF.OID4VP]. Implementation considerations for the response mode `direct_post.jwt` are given in Section 14.3 of [@!OIDF.OID4VP].
 * Authorization Request MUST be sent using the `request_uri` parameter as defined in JWT-Secured Authorization Request (JAR) [@!RFC9101].
 * For Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported by the Wallet and used by the Verifier.
-* The Authority Key Identifier (`aki`) based Trusted Authority Query (`trusted_authorities`) for DCQL as defined in section 6.1 of [@!OIDF.OID4VP] MUST be supported
+* The Authority Key Identifier (`aki`) based Trusted Authority Query (`trusted_authorities`) for DCQL as defined in section 6.1 of [@!OIDF.OID4VP] MUST be supported.
 
 # OpenID for Verifiable Presentations over W3C Digital Credentials API
 
@@ -203,9 +203,9 @@ The following requirements apply for both, the Wallet and the Verifier, unless s
 * Response encryption MUST be performed as specified in [@!OIDF.OID4VP, section 8.3]. The JWE `alg` (algorithm) header parameter (see [@!RFC7516, section 4.1.1])
   value `ECDH-ES` (as defined in [@!RFC7518, section 4.6]), with key agreement utilizing keys on the `P-256` curve (see [@!RFC7518, section 6.2.1.1]) MUST be supported.
   The JWE `enc` (encryption algorithm) header parameter (see [@!RFC7516, section 4.1.2]) value `A128GCM` (as defined in [@!RFC7518, section 5.3]) MUST be supported.
-* The Authority Key Identifier (`aki`) based Trusted Authority Query (`trusted_authorities`) for DCQL as defined in section 6.1 of [@!OIDF.OID4VP] MUST be supported
+* The Authority Key Identifier (`aki`) based Trusted Authority Query (`trusted_authorities`) for DCQL as defined in section 6.1 of [@!OIDF.OID4VP] MUST be supported.
 
-Note that Authority Key Identifiers can be used to also construct requests for issuers from other trust mechanisms that are X.509 based like VICAL as introduced in [@ISO.18013-5] or the ETSI Trusted Lists [@ETSI.TL]
+Note that the Authority Key Identifiers mechanism can be leveraged to construct requests for issuers from other trust mechanisms that are X.509 based like ISO mDL VICAL as introduced in [@ISO.18013-5] or the ETSI Trusted Lists [@ETSI.TL]. This can be achieved by collecting all relevant X.509 certificates of either mechanism and converting them into an array of the encoded KeyIdentifiers to identify the trusted issuers.
 
 ## ISO mdoc specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
 
