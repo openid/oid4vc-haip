@@ -220,7 +220,9 @@ Note that the Credential Format Identifier and `SessionTranscript` CBOR structur
 
 ## IETF SD-JWT VC specific requirements for OpenID for Verifiable Presentations
 
-Note that the Credential Format Identifier is defined in [@!OIDF.OID4VP].
+Requirements for both the Wallet and the Verifier:
+
+* The Credential Format identifier MUST be `dc+sd-jwt`.
 
 # SD-JWT VCs {#sd-jwt-vc}
 
