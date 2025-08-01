@@ -177,9 +177,12 @@ Individual Wallet Attestations MUST be used for each Issuer and they MUST not co
 
 Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
-## Server Metadata
+## Issuer Metadata
 
-* The Credential Issuer MUST publish a mapping of every Credential Type it supports to a scope value.
+The Authorization Server MUST support metadata according to [@!RFC8414].
+
+The Credential Issuer MUST support metadata retrieval according to Section 12.2.2 of [@!OIDF.OID4VCI].
+The Credential Issuer metadata MUST include a scope for every Credential Configuration it supports.
 
 # OpenID for Verifiable Presentations profile for IETF SD-JWT VC
 
@@ -471,6 +474,7 @@ The technology described in this specification was made available from contribut
 
    * mandate support for aki trusted_authorities method
    * remove presentation exchange reference since it was removed in openid4vp
+   * Authorization Server and Credential Issuer must support metadata
    * x509_san_dns & verifier_attestations client id prefixes are no longer permitted, x509_hash must be used
    * x.509 certificates are now the mandatory mechanism for SD-JWT VC issuer key resolution
    * `x5c` header in Status List Token must be present
