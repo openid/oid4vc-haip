@@ -451,12 +451,9 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
-   -05
-
-   * Added support for credentials without cryptographic holder binding
-
    -04
 
+   * Added support for credentials without cryptographic holder binding
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
    * Add small note that establishing trust in and retrieving root certs is out scope
