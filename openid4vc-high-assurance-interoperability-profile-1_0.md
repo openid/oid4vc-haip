@@ -167,7 +167,7 @@ The public key certificate, and optionally a trust certificate chain, used to va
 
 ### Key Attestation {#key-attestation}
 
-Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used and the newly issued credential instances shall be bound to a public key for cryptograohic holder binding, all public keys used in Credential Request SHOULD be attested within a single key attestation.
+Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used and the Credential Issuer has indicated (via `cryptographic_binding_methods_supported ` in it's metadata) that cryptographic binding is required, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
 ## Server Metadata
 
