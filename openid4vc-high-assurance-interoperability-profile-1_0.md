@@ -205,7 +205,7 @@ The following requirements apply for both, the Wallet and the Verifier, unless s
   The JWE `enc` (encryption algorithm) header parameter (see [@!RFC7516, section 4.1.2]) value `A128GCM` (as defined in [@!RFC7518, section 5.3]) MUST be supported.
 * The Authority Key Identifier (`aki`) based Trusted Authority Query (`trusted_authorities`) for DCQL as defined in section 6.1 of [@!OIDF.OID4VP] MUST be supported.
 
-Note that the Authority Key Identifiers mechanism can be leveraged to construct requests for issuers from other trust mechanisms that are X.509 based like ISO mDL VICAL as introduced in [@ISO.18013-5] or the ETSI Trusted Lists [@ETSI.TL]. This can be achieved by collecting all relevant X.509 certificates of either mechanism and converting them into an array of the encoded KeyIdentifiers to identify the trusted issuers.
+Note that the Authority Key Identifiers mechanism can be used to support multiple trust mechanisms that are X.509 based, such as ISO mDL VICAL (as introduced in [@ISO.18013-5]) or ETSI Trusted Lists [@ETSI.TL]. This can be achieved by collecting the relevant X.509 certificates for the trusted Issuers and putting the encoded KeyIdentifers from the certificates into the `aki` array .
 
 ## ISO mdoc specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
 
