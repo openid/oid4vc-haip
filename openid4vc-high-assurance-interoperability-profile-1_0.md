@@ -184,7 +184,9 @@ The Authorization Server MUST support metadata according to [@!RFC8414].
 The Credential Issuer MUST support metadata retrieval according to Section 12.2.2 of [@!OIDF.OID4VCI].
 The Credential Issuer metadata MUST include a scope for every Credential Configuration it supports.
 
-# OpenID for Verifiable Presentations profile for IETF SD-JWT VC
+# OpenID for Verifiable Presentations
+
+## OpenID for Verifiable Presentations via Redirects
 
 Requirements for both the Wallet and the Verifier:
 
@@ -195,7 +197,7 @@ Requirements for both the Wallet and the Verifier:
 * For Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported by the Wallet and used by the Verifier.
 * The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used.
 
-# OpenID for Verifiable Presentations over W3C Digital Credentials API
+## OpenID for Verifiable Presentations via W3C Digital Credentials API
 
 The following requirements apply for both, the Wallet and the Verifier, unless specified otherwise:
 
@@ -206,25 +208,19 @@ The following requirements apply for both, the Wallet and the Verifier, unless s
 * Response encryption MUST be performed as specified in [@!OIDF.OID4VP, section 8.3]. The JWE `alg` (algorithm) header parameter (see [@!RFC7516, section 4.1.1])
   value `ECDH-ES` (as defined in [@!RFC7518, section 4.6]), with key agreement utilizing keys on the `P-256` curve (see [@!RFC7518, section 6.2.1.1]) MUST be supported.
   The JWE `enc` (encryption algorithm) header parameter (see [@!RFC7516, section 4.1.2]) value `A128GCM` (as defined in [@!RFC7518, section 5.3]) MUST be supported.
-* The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used. Presentation Exchange as defined in Sections 5.4 and 5.5 of [@!OIDF.OID4VP] MUST NOT be used.
 
-
-## ISO mdoc specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
+## ISO mdoc specific requirements for OpenID for Verifiable Presentations
 
 Requirements for both the Wallet and the Verifier:
 
 * ISO mdoc Credential Format specific DCQL parameter, `intent_to_retain` defined in Annex B.3.1 of [@!OIDF.OID4VP] MUST be present.
 * When multiple ISO mdocs are being returned, each ISO mdoc MUST be returned in a separate `DeviceResponse` (as defined in 8.3.2.1.2.2 of [@!ISO.18013-5]), each matching to a respective DCQL query. Therefore, the resulting `vp_token` contains multiple `DeviceResponse` instances.
 
-Note that the Credential Format Identifier and `SessionTranscript` CBOR structure are defined in [@!OIDF.OID4VP].
+Note that the Credential Format Identifier and `SessionTranscript` CBOR structures are defined in [@!OIDF.OID4VP].
 
+## IETF SD-JWT VC specific requirements for OpenID for Verifiable Presentations
 
-## IETF SD-JWT VC specific requirements for OpenID for Verifiable Presentations over W3C Digital Credentials API
-
-Requirements for both the Wallet and the Verifier:
-
-* The Credential Format identifier MUST be `dc+sd-jwt`.
-* IETF SD-JWT VC Credential Format specific DCQL parameters as defined in Section 6.4.1 of [@!OIDF.OID4VP] MUST be used.
+Note that the Credential Format Identifier is defined in [@!OIDF.OID4VP].
 
 # SD-JWT VCs {#sd-jwt-vc}
 
