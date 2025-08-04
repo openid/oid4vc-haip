@@ -188,7 +188,7 @@ The Credential Issuer metadata MUST include a scope for every Credential Configu
 
 Both the Wallet and the Verifier:
 
-* MUST support at least one of the Credential format profiles and protocol extensions defined in (#vc_profiles).
+* MUST support at least one of the Credential format profiles and protocol extensions defined in (#vc_sd_jwt_profile).
 
 ## OpenID for Verifiable Presentations via Redirects
 
