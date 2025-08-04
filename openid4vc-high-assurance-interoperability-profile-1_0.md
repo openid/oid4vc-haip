@@ -121,7 +121,7 @@ defined in [@ISO.18013-7]. For more details, also see Annex B.3 in [@!OIDF.OID4V
 Both the Wallet and the Credential Issuer:
 
 * MUST support the authorization code flow.
-* MUST support protocol extensions for the SD-JWT VC Credential format profile as defined in (#vc_sd_jwt_profile).
+* MUST support at least one of the Credential format profiles and protocol extensions defined in (#vc_profiles).
 * MUST support sender-constrained tokens using the mechanism defined in [@!RFC9449].
 * MUST support [@!RFC7636] with `S256` as the code challenge method.
 
@@ -267,9 +267,9 @@ This profile mandates the support for X.509 certificate-based key resolution to 
 
 * For Cryptographic Holder Binding, a KB-JWT, as defined in [@!I-D.ietf-oauth-sd-jwt-vc], MUST always be present when presenting an SD-JWT VC.
 
-## OpenID4VC Credential Format Profile {#vc_sd_jwt_profile}
+## OpenID4VC Credential Format Profile {#vc_profiles}
 
-A Credential Format Profile for Credentials complying with IETF SD-JWT VCs [@!I-D.ietf-oauth-sd-jwt-vc] is defined in Annex A.3 of [@!OIDF.OID4VCI] and Annex A.4 of [@!OIDF.OID4VP].
+A Credential Format Profile for Credentials complying with IETF SD-JWT VCs [@!I-D.ietf-oauth-sd-jwt-vc] is defined in Annex A.3 of [@!OIDF.OID4VCI] and Annex B.3 of [@!OIDF.OID4VP]. For ISO mdocs, a Credential Format Profile is defined in Annex A.2 [@!OIDF.OID4VCI] and Annex B.2 of [@!OIDF.OID4VP].
 
 # Crypto Suites
 
