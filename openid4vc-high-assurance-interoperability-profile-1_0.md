@@ -124,7 +124,7 @@ Both the Wallet and the Credential Issuer:
 * MUST support protocol extensions for the SD-JWT VC Credential format profile as defined in (#vc_sd_jwt_profile).
 * MUST support sender-constrained tokens using DPoP as defined in [@!RFC9449].
 * MUST follow the [FAPI2_Security_Profile] with the following exception:
-  * Client authentication: Wallet Attestations as defined in (#wallet-attestation) are used.
+  * Client authentication: Wallet Attestation as defined in (#wallet-attestation) in used.
 
 Both Wallet initiated and Issuer initiated issuance are supported.
 
