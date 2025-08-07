@@ -46,7 +46,7 @@ A full list of the open standards used in this profile can be found in Overview 
 
 ## Audience Target audience/Usage
 
-The audience of the document is implementers that require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes anyone implementing [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
+The audience of the document is implementers who require a high level of security and privacy for their solutions. A non-exhaustive list of the interested parties includes anyone implementing [eIDAS 2.0](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401183), [California Department of Motor Vehicles](https://www.dmv.ca.gov/portal/), [Open Wallet Foundation (OWF)](https://openwallet.foundation/), [IDunion](https://idunion.org/?lang=en), [GAIN](https://gainforum.org/), and [the Trusted Web project of the Japanese government](https://trustedweb.go.jp/en), but is expected to grow to include other jurisdictions and private sector companies.
 
 # Terminology
 
@@ -67,7 +67,8 @@ A parameter that is listed as optional to be implemented in a specification that
 
 The Profile of OpenID4VCI defines Wallet Attestation and Key Attestation.
 
-The Profile of IETF SD-JWT VC defines the following aspects
+The Profile of IETF SD-JWT VC defines the following aspects:
+
   * Status management of the Credentials, including revocation
   * Cryptographic Key Binding
   * Issuer key resolution
@@ -125,7 +126,13 @@ Both the Wallet and the Credential Issuer:
 * MUST support sender-constrained tokens using the mechanism defined in [@!RFC9449].
 * MUST support [@!RFC7636] with `S256` as the code challenge method.
 
-Both Wallet initiated and Issuer initiated issuance is supported.
+Both Wallet initiated and Issuer initiated issuance are supported.
+
+## Issuer Metadata
+
+When ecosystem policies require Issuer Authentication to a higher level than possible with TLS alone, signed Credential Issuer Metadata as specified in Section 11.2.3 in [@!OIDF.OID4VCI]
+MUST be supported by both the Wallet and the Issuer. Key resolution to validate the signed Issuer
+Metadata MUST be supported using the `x5c` JOSE header parameter as defined in [@!RFC7515].
 
 ## Credential Offer
 
@@ -140,7 +147,7 @@ Both Issuer and Wallet MUST support Credential Offer in both same-device and cro
 ## Authorization Endpoint
 
 * MUST use Pushed Authorization Requests (PAR) [@!RFC9126] to send the Authorization Request.
-* Wallets MUST authenticate itself at the PAR endpoint using the same rules as defined in (#token-endpoint) for client authentication at the token endpoint.
+* Wallets MUST authenticate themselves at the PAR endpoint using the same rules as defined in (#token-endpoint) for client authentication at the token endpoint.
 * MUST use the `scope` parameter to communicate Credential Type(s) to be issued. The scope value MUST map to a specific Credential Type. The scope value may be pre-agreed, obtained from the Credential Offer, or the Credential Issuer Metadata.
 * The `client_id` value in the PAR request MUST be a string that the Wallet has used as the `sub` value in the client attestation JWT.
 
@@ -149,8 +156,6 @@ Both Issuer and Wallet MUST support Credential Offer in both same-device and cro
 * The Wallets MUST perform client authentication as defined in (#wallet-attestation).
 * Refresh tokens are RECOMMENDED to be supported for Credential refresh. For details, see Section 13.5 in [@!OIDF.OID4VCI].
 
-Note: It is RECOMMENDED to use ephemeral client attestation JWTs for client authentication in order to prevent linkability across Credential Issuers.
-
 Note: Issuers SHOULD be mindful of how long the usage of the refresh token is allowed to refresh a credential, as opposed to starting the issuance flow from the beginning. For example, if the User is trying to refresh a Credential more than a year after its original issuance, the usage of the refresh tokens is NOT RECOMMENDED.
 
 ### Wallet Attestation {#wallet-attestation}
@@ -158,6 +163,8 @@ Note: Issuers SHOULD be mindful of how long the usage of the refresh token is al
 Wallets MUST use Wallet Attestations as defined in Annex E of [@!OIDF.OID4VCI].
 
 The public key certificate, and optionally a trust certificate chain, used to validate the signature on the Wallet Attestation MUST be included in the `x5c` JOSE header of the Client Attestation JWT.
+
+Individual Wallet Attestations MUST be used for each Issuer and they MUST not contain unique identifiers that would enable linkability between issuance processes. See section 14.4.4 of [@!OIDF.OID4VCI] for details on the Wallet Attestation subject.
 
 ## Credential Endpoint
 
@@ -169,9 +176,12 @@ The public key certificate, and optionally a trust certificate chain, used to va
 
 Wallets MUST support key attestations as defined in Annex D of [@!OIDF.OID4VCI]. If batch issuance is used and the Credential Issuer has indicated (via `cryptographic_binding_methods_supported ` in it's metadata) that cryptographic binding is required, all public keys used in Credential Request SHOULD be attested within a single key attestation.
 
-## Server Metadata
+## Issuer Metadata
 
-* The Credential Issuer MUST publish a mapping of every Credential Type it supports to a scope value.
+The Authorization Server MUST support metadata according to [@!RFC8414].
+
+The Credential Issuer MUST support metadata retrieval according to Section 12.2.2 of [@!OIDF.OID4VCI].
+The Credential Issuer metadata MUST include a scope for every Credential Configuration it supports.
 
 # OpenID for Verifiable Presentations profile for IETF SD-JWT VC
 
@@ -181,8 +191,7 @@ Requirements for both the Wallet and the Verifier:
 * Response type MUST be `vp_token`.
 * Response mode MUST be `direct_post.jwt`. The Verifier MUST return `redirect_uri` in response to the HTTP POST request from the Wallet, where the Wallet redirects the User to, as defined in Section 8.2 of [@!OIDF.OID4VP]. Implementation considerations for the response mode `direct_post.jwt` are given in Section 14.3 of [@!OIDF.OID4VP].
 * Authorization Request MUST be sent using the `request_uri` parameter as defined in JWT-Secured Authorization Request (JAR) [@!RFC9101].
-* The Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP] MUST be either `x509_san_dns` or `verifier_attestation`. The Wallet MUST support both. The Verifier MUST support at least one.
-* To obtain the Issuer's public key for Verification, Verifiers MUST support Web-based key resolution, as defined in Section 5 of [@!I-D.ietf-oauth-sd-jwt-vc]. The JOSE header `kid` MUST be used to identify the respective key.
+* For Client Identifier Prefix as introduced in Section 5.10 of [@!OIDF.OID4VP], `x509_hash` MUST be supported by the Wallet and used by the Verifier.
 * The DCQL query and response as defined in Section 6 of [@!OIDF.OID4VP] MUST be used.
 
 # OpenID for Verifiable Presentations over W3C Digital Credentials API
@@ -237,6 +246,7 @@ This profile defines the following additional requirements for IETF SD-JWT VCs a
 * The `iss` claim MUST be an HTTPS URL. The `iss` value is used to obtain Issuer’s signing key as defined in (#issuer-key-resolution).
 * The `vct` JWT claim as defined in [@!I-D.ietf-oauth-sd-jwt-vc].
 * The `cnf` claim [@!RFC7800] MUST conform to the definition given in [@!I-D.ietf-oauth-sd-jwt-vc]. Implementations conforming to this profile MUST include the JSON Web Key [@!RFC7517] in the `jwk` sub claim.
+* The public key used to validate the signature on the Status List Token MUST be included in the `x5c` JOSE header of the Token.
 
 Note: Re-using the same Credential across Verifiers, or re-using the same JWK value across multiple Credentials gives colluding Verifiers a mechanism to correlate the User. There are currently two known ways to address this with SD-JWT VCs. First is to issue multiple instances of the same Credentials with different JWK values, so that if each instance of the Credential is used at only one Verifier, it can be reused multiple times. Another is to use each Credential only once (ephemeral Credentials). It is RECOMMENDED to adopt one of these mechanisms.
 
@@ -248,12 +258,7 @@ Note: In some Credential Types, it is not desirable to include an expiration dat
 
 ## Issuer identification and key resolution to validate an issued Credential {#issuer-key-resolution}
 
-This profile supports two ways to represent and resolve the key required to validate the Issuer signature of an SD-JWT VC, the web PKI-based key resolution and the x.509 certificates.
-
-* Web-based key resolution: The key used to validate the Issuer’s signature on the SD-JWT VC MUST be obtained from the SD-JWT VC Issuer's metadata as defined in Section 5 of [@!I-D.ietf-oauth-sd-jwt-vc]. The JOSE header `kid` MUST be used to identify the respective key.
-* x.509 certificates: the SD-JWT VC contains the Issuer's certificate along with a trust chain in the `x5c` JOSE header. In this case, the `iss` value MUST be an URL with a FQDN matching a `dNSName` Subject Alternative Name (SAN) [@!RFC5280] entry in the leaf certificate.
-
-Note: The Issuer MAY decide to support both options. In which case, it is at the discretion of the Wallet and the Verifier which key to use for the Issuer signature validation.
+This profile mandates the support for X.509 certificate-based key resolution to validate the issuer signature of an SD-JWT VC. This MUST be supported by all entities (Issuer, Wallet, Verifier). The SD-JWT VC MUST contain the credential issuer's certificate along with a trust chain in the `x5c` JOSE header parameter as described in section 3.5 of [@!I-D.ietf-oauth-sd-jwt-vc].
 
 ### Cryptographic Holder Binding between VC and VP
 
@@ -276,7 +281,7 @@ Issuers, Holders, and Verifiers MUST support P-256 (secp256r1) as a key type wit
 
 When using this profile alongside other cryptosuites, each entity SHOULD make it explicit in its metadata which other algorithms and key types are supported for the cryptographic operations.
 
-# Hash Algoritms
+# Hash Algorithms
 
 The hash algorithm SHA-256 MUST be supported by all the entities to generate and validate the digests in the IETF SD-JWT VC and ISO mdoc.
 
@@ -454,6 +459,12 @@ The technology described in this specification was made available from contribut
    -04
 
    * Added support for credentials without cryptographic holder binding
+   * Authorization Server and Credential Issuer must support metadata
+   * x509_san_dns & verifier_attestations client id prefixes are no longer permitted, x509_hash must be used
+   * x.509 certificates are now the mandatory mechanism for SD-JWT VC issuer key resolution
+   * `x5c` header in Status List Token must be present
+   * clarify that Wallet Attestations must not contain linkable information.
+   * Add signed Issuer Metadata
    * add key attestation to OpenID4VCI
    * clarify text regarding mdoc specific parameters
    * Add small note that establishing trust in and retrieving root certs is out scope
